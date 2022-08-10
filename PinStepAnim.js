@@ -54,9 +54,7 @@
                     console.error("core.mainElem.selector return an empty nodelist, are you sur this element exist ?")
                     return;
                 }
-
             }
-
         }
 
 
@@ -75,7 +73,7 @@
 
 
                     if (blocs.length < core.mainElem.list.length) {
-                        console.error("list of innerElems '" + innerElem.selector + "' lack : '" + (blocs.length - core.mainElem.list.length) + "' images");
+                        console.warn("list of innerElems '" + innerElem.selector + "' lack : '" + (blocs.length - core.mainElem.list.length) + "' images");
                     }
                     let localIndex = 0;
                     if (blocs.length > 0) {
@@ -133,23 +131,96 @@
                     }
 
                 }
-
-
             })
-
 
         }
 
 
 
+        if (core.beforeAnims == null || !Array.isArray(core.beforeAnims) || core.beforeAnims.length <= 0) {
+            console.log("core.beforeAnims non detected ")
+        } else {
+
+            let beforeAnimsIndex = 0;
+
+            core.beforeAnims.forEach(beforeAnim => {
+                beforeAnimsIndex++;
+                if (beforeAnim.selector == null || typeof beforeAnim.selector !== 'string') {
+                    console.error("The " + beforeAnimsIndex+" beforeAnim.selector is null or wrong type and require a string")
+                    return;
+                } else {
+
+                    let blocs = document.querySelectorAll(beforeAnim.selector);
+                    let localIndex = 0;
+                    if (blocs.length > 0) {
+                        blocs?.forEach(bloc => {
+
+                            if (beforeAnim.createClass != null && typeof beforeAnim.createClass === 'string') {
+                                bloc.classList.add(beforeAnim.createClass);
+                                bloc.classList.add(beforeAnim.createClass + "-" + (localIndex + 1).toString());
+                            }
+                            localIndex++;
+                        })
+
+                        beforeAnim.list = blocs;
+                    } else {
+                        console.error("The " + beforeAnimsIndex + " beforeAnim.selector return an empty nodelist, are you sur this element exist ?")
+                        return;
+                    }
+
+                }
+            })
+
+        }
+
+        //AnimBefore
+
+        core.beforeAnims?.forEach(beforeAnim => {
+
+            
+            let beforeAnimsIndex = 0;
+            beforeAnim.list.forEach(elem => {
+
+                if (beforeAnim.enabled != false) {
+
+                
+
+                    if (beforeAnim.list.length == 1  ) {
+
+                        this.elemFrom(gsapInner, elem, beforeAnim.gsapFrom?.properties, beforeAnim.gsapFrom?.endDelay)
+                        this.elemTo(gsapInner, elem, beforeAnim.gsapTo?.properties, beforeAnim.gsapTo?.endDelay)
+
+                    } else {
+
+                        if (beforeAnimsIndex != 0) {
+                            this.elemFrom(gsapInner, elem, beforeAnim.gsapFrom?.properties, beforeAnim.gsapFrom?.endDelay)
+
+
+                        }
+
+                        if (beforeAnim.list.length - 1 != beforeAnimsIndex) {
+                            this.elemTo(gsapInner, elem, beforeAnim.gsapTo?.properties, beforeAnim.gsapTo?.endDelay)
+
+                        }
+                    }
+
+                    beforeAnimsIndex++;
+                }
+            })
+
+
+
+        })
+
+
+
         core.mainElem.list.forEach(bloc => {
 
-
-
             if (index != 0) {
-
                 this.elemFrom(gsapInner, bloc, core.mainElem.gsapFrom?.properties, core.mainElem.gsapFrom?.endDelay);
+
                 core.innerElems?.forEach(innerElem => {
+
                     this.elemFrom(gsapInner, innerElem.list[index], innerElem.gsapFrom?.properties, innerElem.gsapFrom?.endDelay)
                 })
 
@@ -157,8 +228,12 @@
 
 
             if (core.mainElem.list.length - 1 != index) {
+                console.log(core.mainElem)
                 this.elemTo(gsapInner, bloc, core.mainElem.gsapTo?.properties, core.mainElem.gsapTo?.endDelay);
                 core.innerElems?.forEach(innerElem => {
+
+
+
                     this.elemTo(gsapInner, innerElem.list[index], innerElem.gsapTo?.properties, innerElem.gsapTo?.endDelay)
                 })
 
@@ -195,11 +270,8 @@
                     }
                 }
 
-
-
                 outterIndex++;
             })
-
 
 
 
