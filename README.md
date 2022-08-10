@@ -20,7 +20,29 @@ new PinStepAnim({
     toggleActions: "Play Reverse none none"
 }, {
 
-    mainElem: {
+        //Non obligatoire
+        beforeAnims: [ //Liste des animations a jouer avant la principale.
+            {
+                createClass:"class-created", //Crée une classe sur l'element selectionné
+                selector: ".ct-rea-av", //Le selecteur de l'element à animer
+                enabled: true, //Active ou desactive l'animation
+                gsapFrom: { //Equivalant au gsap from
+                    properties: {  //Propriétés gsap 
+                        x: "-100px",
+                    },
+                    endDelay: "-=0.5" //Délais avant la fin de l'animation
+                },
+
+                gsapTo: { //Equivalant au gsap to
+                    properties: {
+                       x: "100px",
+                    },
+                },
+            }
+        ],
+
+        //Requis
+        mainElem: {
 
         selector: ".block-etape",
         //createClass: "block-test",
@@ -43,6 +65,7 @@ new PinStepAnim({
         },
 
     },
+    //Non obligatoire
     innerElems: [{
         selector: ".etapeTitle",
         gsapFrom: {
@@ -82,6 +105,7 @@ new PinStepAnim({
 
         },
     }],
+    //Non obligatoire
     outterElems: [{
         selector: ".elem",
         gsapFrom: {
