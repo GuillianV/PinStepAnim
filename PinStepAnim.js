@@ -185,7 +185,7 @@
             let beforeAnimsIndex = 0;
             beforeAnim.list.forEach(elem => {
 
-                if (beforeAnim.enabled != false) {
+                if (beforeAnim.enabled != false) { 
 
                 
 

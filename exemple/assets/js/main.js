@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function() {
             gsapTo: {
                 properties: {
                     yPercent: -20,
-                },
+                }, 
                 endDelay: "<0"
 
             },
