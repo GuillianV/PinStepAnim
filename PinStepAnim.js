@@ -2,13 +2,17 @@
 
     constructor(gsapProperties, core) {
 
+        this.gsapProperties = gsapProperties;
+        this.core = core;
 
         if (window.gsap === undefined) {
-            this.importScript("https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js")
+            this.importScript("https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js",gsapProperties,core);
+            return;
         }
 
         if (window.ScrollTrigger === undefined) {
-            this.importScript("https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js")
+            this.importScript("https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js",gsapProperties,core)
+            return;
         }
 
 
@@ -310,10 +314,16 @@
 
 
 
-    importScript(url) {
+    importScript(url,gsapProperties,core) {
         var script = document.createElement('script');
         script.src = url;
+        script.onload = () => {
+            // script has loaded, you can now use it safely
+            new PinStepAnim(gsapProperties,core);
+            // ... do something with the newly loaded script
+        }  
         document.getElementsByTagName('head')[0].appendChild(script);
+       
     }
 
 }
