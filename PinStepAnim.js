@@ -2,17 +2,21 @@
 
     constructor(gsapProperties, core) {
 
+        this.gsapProperties = gsapProperties;
+        this.core = core;
 
         if (window.gsap === undefined) {
-            this.importScript("https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js")
+            this.importScript("https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js",gsapProperties,core);
+            return;
         }
 
         if (window.ScrollTrigger === undefined) {
-            this.importScript("https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js")
+            this.importScript("https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js",gsapProperties,core)
+            return;
         }
 
 
-        var gsapOutter = this.createScrollTrigger(gsapProperties);
+        //var gsapOutter = this.createScrollTrigger(gsapProperties);
         var gsapInner = this.createScrollTrigger(gsapProperties);
 
 
@@ -101,116 +105,116 @@
 
 
 
-        if (core.outterElems == null || !Array.isArray(core.outterElems) || core.outterElems.length <= 0) {
-            console.log("core.outterElems non detected")
-        } else {
+        //if (core.outterElems == null || !Array.isArray(core.outterElems) || core.outterElems.length <= 0) {
+        //    console.log("core.outterElems non detected")
+        //} else {
 
-            core.outterElems.forEach(outterElem => {
+        //    core.outterElems.forEach(outterElem => {
 
-                if (outterElem.selector == null || typeof outterElem.selector !== 'string') {
-                    console.error("outterElem.selector is null or wrong type and require a string")
-                    return;
-                } else {
+        //        if (outterElem.selector == null || typeof outterElem.selector !== 'string') {
+        //            console.error("outterElem.selector is null or wrong type and require a string")
+        //            return;
+        //        } else {
 
-                    let blocs = document.querySelectorAll(outterElem.selector);
-                    let localIndex = 0;
-                    if (blocs.length > 0) {
-                        blocs?.forEach(bloc => {
+        //            let blocs = document.querySelectorAll(outterElem.selector);
+        //            let localIndex = 0;
+        //            if (blocs.length > 0) {
+        //                blocs?.forEach(bloc => {
 
-                            if (outterElem.createClass != null && typeof outterElem.createClass === 'string') {
-                                bloc.classList.add(outterElem.createClass);
-                                bloc.classList.add(outterElem.createClass + "-" + (localIndex + 1).toString());
-                            }
-                            localIndex++;
-                        })
+        //                    if (outterElem.createClass != null && typeof outterElem.createClass === 'string') {
+        //                        bloc.classList.add(outterElem.createClass);
+        //                        bloc.classList.add(outterElem.createClass + "-" + (localIndex + 1).toString());
+        //                    }
+        //                    localIndex++;
+        //                })
 
-                        outterElem.list = blocs;
-                    } else {
-                        console.error("outterElem.selector return an empty nodelist, are you sur this element exist ?")
-                        return;
-                    }
+        //                outterElem.list = blocs;
+        //            } else {
+        //                console.error("outterElem.selector return an empty nodelist, are you sur this element exist ?")
+        //                return;
+        //            }
 
-                }
-            })
+        //        }
+        //    })
 
-        }
+        //}
 
 
 
-        if (core.beforeAnims == null || !Array.isArray(core.beforeAnims) || core.beforeAnims.length <= 0) {
-            console.log("core.beforeAnims non detected ")
-        } else {
+        //if (core.beforeAnims == null || !Array.isArray(core.beforeAnims) || core.beforeAnims.length <= 0) {
+        //    console.log("core.beforeAnims non detected ")
+        //} else {
 
-            let beforeAnimsIndex = 0;
+        //    let beforeAnimsIndex = 0;
 
-            core.beforeAnims.forEach(beforeAnim => {
-                beforeAnimsIndex++;
-                if (beforeAnim.selector == null || typeof beforeAnim.selector !== 'string') {
-                    console.error("The " + beforeAnimsIndex+" beforeAnim.selector is null or wrong type and require a string")
-                    return;
-                } else {
+        //    core.beforeAnims.forEach(beforeAnim => {
+        //        beforeAnimsIndex++;
+        //        if (beforeAnim.selector == null || typeof beforeAnim.selector !== 'string') {
+        //            console.error("The " + beforeAnimsIndex+" beforeAnim.selector is null or wrong type and require a string")
+        //            return;
+        //        } else {
 
-                    let blocs = document.querySelectorAll(beforeAnim.selector);
-                    let localIndex = 0;
-                    if (blocs.length > 0) {
-                        blocs?.forEach(bloc => {
+        //            let blocs = document.querySelectorAll(beforeAnim.selector);
+        //            let localIndex = 0;
+        //            if (blocs.length > 0) {
+        //                blocs?.forEach(bloc => {
 
-                            if (beforeAnim.createClass != null && typeof beforeAnim.createClass === 'string') {
-                                bloc.classList.add(beforeAnim.createClass);
-                                bloc.classList.add(beforeAnim.createClass + "-" + (localIndex + 1).toString());
-                            }
-                            localIndex++;
-                        })
+        //                    if (beforeAnim.createClass != null && typeof beforeAnim.createClass === 'string') {
+        //                        bloc.classList.add(beforeAnim.createClass);
+        //                        bloc.classList.add(beforeAnim.createClass + "-" + (localIndex + 1).toString());
+        //                    }
+        //                    localIndex++;
+        //                })
 
-                        beforeAnim.list = blocs;
-                    } else {
-                        console.error("The " + beforeAnimsIndex + " beforeAnim.selector return an empty nodelist, are you sur this element exist ?")
-                        return;
-                    }
+        //                beforeAnim.list = blocs;
+        //            } else {
+        //                console.error("The " + beforeAnimsIndex + " beforeAnim.selector return an empty nodelist, are you sur this element exist ?")
+        //                return;
+        //            }
 
-                }
-            })
+        //        }
+        //    })
 
-        }
+        //}
 
         //AnimBefore
 
-        core.beforeAnims?.forEach(beforeAnim => {
+        //core.beforeAnims?.forEach(beforeAnim => {
 
             
-            let beforeAnimsIndex = 0;
-            beforeAnim.list.forEach(elem => {
+        //    let beforeAnimsIndex = 0;
+        //    beforeAnim.list.forEach(elem => {
 
-                if (beforeAnim.enabled != false) {
+        //        if (beforeAnim.enabled != false) { 
 
                 
 
-                    if (beforeAnim.list.length == 1  ) {
+        //            if (beforeAnim.list.length == 1  ) {
 
-                        this.elemFrom(gsapInner, elem, beforeAnim.gsapFrom?.properties, beforeAnim.gsapFrom?.endDelay)
-                        this.elemTo(gsapInner, elem, beforeAnim.gsapTo?.properties, beforeAnim.gsapTo?.endDelay)
+        //                this.elemFrom(gsapInner, elem, beforeAnim.gsapFrom?.properties, beforeAnim.gsapFrom?.endDelay)
+        //                this.elemTo(gsapInner, elem, beforeAnim.gsapTo?.properties, beforeAnim.gsapTo?.endDelay)
 
-                    } else {
+        //            } else {
 
-                        if (beforeAnimsIndex != 0) {
-                            this.elemFrom(gsapInner, elem, beforeAnim.gsapFrom?.properties, beforeAnim.gsapFrom?.endDelay)
-
-
-                        }
-
-                        if (beforeAnim.list.length - 1 != beforeAnimsIndex) {
-                            this.elemTo(gsapInner, elem, beforeAnim.gsapTo?.properties, beforeAnim.gsapTo?.endDelay)
-
-                        }
-                    }
-
-                    beforeAnimsIndex++;
-                }
-            })
+        //                if (beforeAnimsIndex != 0) {
+        //                    this.elemFrom(gsapInner, elem, beforeAnim.gsapFrom?.properties, beforeAnim.gsapFrom?.endDelay)
 
 
+        //                }
 
-        })
+        //                if (beforeAnim.list.length - 1 != beforeAnimsIndex) {
+        //                    this.elemTo(gsapInner, elem, beforeAnim.gsapTo?.properties, beforeAnim.gsapTo?.endDelay)
+
+        //                }
+        //            }
+
+        //            beforeAnimsIndex++;
+        //        }
+        //    })
+
+
+
+        //})
 
 
 
@@ -245,37 +249,37 @@
 
 
 
-        core.outterElems?.forEach(outterElem => {
+        //core.outterElems?.forEach(outterElem => {
 
-            let outterIndex = 0;
-            outterElem.list.forEach(elem => {
-
-
-                if (outterElem.list.length == 1) {
-
-                    this.elemFrom(gsapOutter, elem, outterElem.gsapFrom?.properties, outterElem.gsapFrom?.endDelay)
-                    this.elemTo(gsapOutter, elem, outterElem.gsapTo?.properties, outterElem.gsapTo?.endDelay)
-
-                } else {
-
-                    if (outterIndex != 0) {
-                        this.elemFrom(gsapOutter, elem, outterElem.gsapFrom?.properties, outterElem.gsapFrom?.endDelay)
+        //    let outterIndex = 0;
+        //    outterElem.list.forEach(elem => {
 
 
-                    }
+        //        if (outterElem.list.length == 1) {
 
-                    if (outterElem.list.length - 1 != outterIndex) {
-                        this.elemTo(gsapOutter, elem, outterElem.gsapTo?.properties, outterElem.gsapTo?.endDelay)
+        //            this.elemFrom(gsapOutter, elem, outterElem.gsapFrom?.properties, outterElem.gsapFrom?.endDelay)
+        //            this.elemTo(gsapOutter, elem, outterElem.gsapTo?.properties, outterElem.gsapTo?.endDelay)
 
-                    }
-                }
+        //        } else {
 
-                outterIndex++;
-            })
-
+        //            if (outterIndex != 0) {
+        //                this.elemFrom(gsapOutter, elem, outterElem.gsapFrom?.properties, outterElem.gsapFrom?.endDelay)
 
 
-        })
+        //            }
+
+        //            if (outterElem.list.length - 1 != outterIndex) {
+        //                this.elemTo(gsapOutter, elem, outterElem.gsapTo?.properties, outterElem.gsapTo?.endDelay)
+
+        //            }
+        //        }
+
+        //        outterIndex++;
+        //    })
+
+
+
+        //})
 
     }
 
@@ -310,10 +314,16 @@
 
 
 
-    importScript(url) {
+    importScript(url,gsapProperties,core) {
         var script = document.createElement('script');
         script.src = url;
+        script.onload = () => {
+            // script has loaded, you can now use it safely
+            new PinStepAnim(gsapProperties,core);
+            // ... do something with the newly loaded script
+        }  
         document.getElementsByTagName('head')[0].appendChild(script);
+       
     }
 
 }
