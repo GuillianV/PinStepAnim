@@ -20,111 +20,92 @@ new PinStepAnim({
     toggleActions: "Play Reverse none none"
 }, {
 
-        //Non obligatoire
-        beforeAnims: [ //Liste des animations a jouer avant la principale.
+       mainElem: {
+
+            selector: document.querySelectorAll(".block-etape"), // Peut etre une variable avec une NodeList , un selecteur css
+            createClass: "b", // Génere une classe custom aux blocks principaux
+            gsapFrom: {
+                properties: {
+                    yPercent: 200, //Tous les propriétés gsap nécessaires
+                    opacity: 0,
+                },
+                endDelay: "-=0.5"
+            },
+
+            gsapTo: {
+                properties: {
+
+                    yPercent: -200,
+                    opacity: 0,
+                },
+            },
+
+        },
+        innerElems: [
+            
+            //Tableau contenant une liste d'objet à animer en parallele de l'élement principal
             {
-                createClass:"class-created", //Crée une classe sur l'element selectionné
-                selector: ".ct-rea-av", //Le selecteur de l'element à animer
-                enabled: true, //Active ou desactive l'animation
-                gsapFrom: { //Equivalant au gsap from
-                    properties: {  //Propriétés gsap 
-                        x: "-100px",
-                    },
-                    endDelay: "-=0.5" //Délais avant la fin de l'animation
+            selector: ".etapeTitle", 
+            gsapFrom: {
+                properties: {
+
+                    yPercent: 40,
+
                 },
+                endDelay: "<0"
+            },
 
-                gsapTo: { //Equivalant au gsap to
-                    properties: {
-                       x: "100px",
-                    },
+            gsapTo: {
+                properties: {
+                    yPercent: -40,
                 },
-            }
-        ],
-
-        //Requis
-        mainElem: {
-
-        selector: ".block-etape",
-        //createClass: "block-test",
-        gsapFrom: {
-            properties: {
-
-                yPercent: 200,
-                opacity: 0,
-                clearProps: "all"
-            },
-            endDelay: "-=0.5"
-        },
-
-        gsapTo: {
-            properties: {
-
-                yPercent: -200,
-                opacity: 0,
-            },
-        },
-
-    },
-    //Non obligatoire
-    innerElems: [{
-        selector: ".etapeTitle",
-        gsapFrom: {
-            properties: {
-
-                yPercent: 40,
+                endDelay: "<0"
 
             },
-            endDelay: "<0"
-        },
-
-        gsapTo: {
-            properties: {
-                yPercent: -40,
-            },
-            endDelay: "<0"
-
-        },
 
 
-    }, {
-        selector: ".number",
-        gsapFrom: {
-            properties: {
+        },{
+            selector: ".images-anim-img",
+            gsapFrom: {
+                properties: {
 
-                yPercent: 20,
+                    xPercent: 100,
 
-            },
-            endDelay: "<0"
-        },
-
-        gsapTo: {
-            properties: {
-                yPercent: -20,
-            },
-            endDelay: "<0"
-
-        },
-    }],
-    //Non obligatoire
-    outterElems: [{
-        selector: ".elem",
-        gsapFrom: {
-            properties: {
-                yPercent: 100,
-
-            },
-              endDelay: "-=0.5"
-        },
-
-        gsapTo: {
-            properties: {
-                yPercent: -100,
+                },
+                endDelay: "<0"
             },
 
-        },
+            gsapTo: {
+                properties: {
+                    yPercent: -100,
+                },
+                endDelay: "<0"
+
+            },
 
 
-    }]
+        }, {
+            selector: ".number",
+            gsapFrom: {
+                properties: {
+
+                    yPercent: 20,
+                },
+                endDelay: "<0"
+            },
+
+            gsapTo: {
+                properties: {
+                    yPercent: -20,
+                    
+                }, 
+                endDelay: "<0"
+
+            },
+        }],
+      
+
+    
 
 })
 
